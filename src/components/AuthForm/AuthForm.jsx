@@ -12,7 +12,7 @@ const AuthForm = () => {
     })
 
     const handleAuth = () => {
-        if(!inputs.email || !inputs.password || !inputs.confirmPassword) {
+        if(!inputs.email || !inputs.password ) {
             alert("Please fill all the fields")
             return;
         }

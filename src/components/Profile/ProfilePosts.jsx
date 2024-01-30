@@ -1,11 +1,10 @@
-import {Grid, VStack, Skeleton, Box, useDisclosure} from '@chakra-ui/react';
+import {Grid, VStack, Skeleton, Box, } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ProfilePost from './ProfilePost';
 
 const ProfilePosts = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-  const { isOpen, onOpen, onClose } =useDisclosure()
 
   useEffect(() => {
     setTimeout(()=> {

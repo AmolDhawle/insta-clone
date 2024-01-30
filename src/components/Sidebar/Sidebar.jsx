@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Avatar, Tooltip} from '@chakra-ui/react';
+import { Box, Flex, Link, Avatar, Tooltip, Button} from '@chakra-ui/react';
 import {Link as RouterLink} from 'react-router-dom';
 import { 
     CreatePostLogo, 
@@ -9,6 +9,7 @@ import {
 } from '../../assets/constants';
 import { AiFillHome } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
+import useLogout from '../../hooks/useLogout';
 
 const Sidebar = () => {
     const sidebarItems = [
@@ -34,7 +35,10 @@ const Sidebar = () => {
             text: 'Profile',
             link: '/profile',
         }
-    ]
+    ];
+    
+    const {handleLogout, isLoggingOut,} = useLogout()
+
   return (
     <Box 
         height={"100vh"}
@@ -47,58 +51,60 @@ const Sidebar = () => {
         px={{base:2, md:4}}
     >
 
-      <Flex direction={'column'} gap={10} width={'full'} height={'full'}> 
-        <Link 
-            to={'/'} 
-            as={RouterLink} 
-            pl={2} 
-            display={{base:'none', md:'block'}} 
-            cursor={'pointer'}
-        >
-            <InstagramLogo />
-        </Link>
-        <Link 
-            to={'/'} 
-            as={RouterLink} 
-            p={2} 
-            display={{base:'block', md:'none'}} 
-            cursor={'pointer'} 
-            borderRadius={6} 
-            _hover={{bg:'whiteAlpha.200'}} 
-            w={10}>
-            <InstagramMobileLogo />
-        </Link>
-        <Flex direction={'column'} gap={5} cursor={'pointer'}>
-            {sidebarItems.map((item, index) => (
-                <Tooltip 
-                    key={index}
-                    hasArrow 
-                    label={item.text}
-                    placement='right'
-                    ml={1}
-                    openDelay={300} 
-                    display={{base:'block', md:'none'}}
-                >
-                    <Link
-                        display={'flex'} 
-                        to={item.link || null}
-                        as={RouterLink} 
-                        alignItems={'center'} 
-                        gap={4} 
-                        _hover={{bg:'whiteAlpha.400'}} 
-                        borderRadius={6}
-                        p={2} 
-                        w={{base:10,md:'full'}} 
-                        justifyContent={{base:'center',md:'flex-start'}}
+        <Flex direction={'column'} gap={10} width={'full'} height={'full'}> 
+            <Link 
+                to={'/'} 
+                as={RouterLink} 
+                pl={2} 
+                display={{base:'none', md:'block'}} 
+                cursor={'pointer'}
+            >
+                <InstagramLogo />
+            </Link>
+            <Link 
+                to={'/'} 
+                as={RouterLink} 
+                p={2} 
+                display={{base:'block', md:'none'}} 
+                cursor={'pointer'} 
+                borderRadius={6} 
+                _hover={{bg:'whiteAlpha.200'}} 
+                w={10}>
+                <InstagramMobileLogo />
+            </Link>
+            <Flex direction={'column'} gap={5} cursor={'pointer'}>
+                {sidebarItems.map((item, index) => (
+                    <Tooltip 
+                        key={index}
+                        hasArrow 
+                        label={item.text}
+                        placement='right'
+                        ml={1}
+                        openDelay={300} 
+                        display={{base:'block', md:'none'}}
                     >
-                        {item.icon}
-                        <Box display={{base:'none',md:'block'}}>
-                            {item.text}
-                        </Box>
-                    </Link>
-                </Tooltip>
-            ))}
-        </Flex>
+                        <Link
+                            display={'flex'} 
+                            to={item.link || null}
+                            as={RouterLink} 
+                            alignItems={'center'} 
+                            gap={4} 
+                            _hover={{bg:'whiteAlpha.400'}} 
+                            borderRadius={6}
+                            p={2} 
+                            w={{base:10,md:'full'}} 
+                            justifyContent={{base:'center',md:'flex-start'}}
+                        >
+                            {item.icon}
+                            <Box display={{base:'none',md:'block'}}>
+                                {item.text}
+                            </Box>
+                        </Link>
+                    </Tooltip>
+                ))}
+            </Flex>
+
+
             <Tooltip 
                     hasArrow 
                     label={'Logout'}
@@ -106,27 +112,29 @@ const Sidebar = () => {
                     ml={1}
                     openDelay={500} 
                     display={{base:'block', md:'none'}}
+            >
+                <Flex
+                    onClick={handleLogout}
+                    alignItems={'center'} 
+                    gap={4} 
+                    _hover={{bg:'whiteAlpha.400'}} 
+                    borderRadius={6}
+                    p={2} 
+                    w={{base:10,md:'full'}} 
+                    mt='auto'
+                    justifyContent={{base:'center',md:'flex-start'}}
                 >
-                    <Link
-                        display={'flex'} 
-                        to={'/auth'}
-                        as={RouterLink} 
-                        alignItems={'center'} 
-                        gap={4} 
-                        _hover={{bg:'whiteAlpha.400'}} 
-                        borderRadius={6}
-                        p={2} 
-                        w={{base:10,md:'full'}} 
-                        mt='auto'
-                        justifyContent={{base:'center',md:'flex-start'}}
+                    <BiLogOut size={25}/>
+                    <Button display={{base:'none',md:'block'}}
+                        variant={'ghost'} 
+                        _hover={{bg:'transparent'}} 
+                        isLoading={isLoggingOut}
                     >
-                        <BiLogOut size={25}/>
-                        <Box display={{base:'none',md:'block'}}>
-                            Logout
-                        </Box>
-                    </Link>
-                </Tooltip>
-      </Flex>
+                        Logout
+                    </Button>
+                </Flex>
+            </Tooltip>
+        </Flex>
     </Box>
   )
 }

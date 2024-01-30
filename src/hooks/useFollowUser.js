@@ -80,7 +80,7 @@ const useFollowUser = (userId) => {
 			const isFollowing = authUser.following.includes(userId);
 			setIsFollowing(isFollowing);
 		}
-	}, [authUser, userId]);
+	}, [authUser, userProfile, userId]);
 
 	return { isUpdating, isFollowing, handleFollowUser };
 };

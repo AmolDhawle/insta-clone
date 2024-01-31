@@ -26,6 +26,7 @@ import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
 import { useState } from 'react';
+import Caption from '../Comments/Caption';
 
 const ProfilePost = ({post}) => {
 
@@ -151,10 +152,13 @@ const ProfilePost = ({post}) => {
                   </Flex>
                   <Divider my={4} bg={'gray.500'} />
                   <VStack w={'full'} alignItems={'start'} maxH={'350px'} overflowY={'auto'}>
-                    
+                    {post.caption && <Caption post={post} />}
+                    {post.comments.map((comment) => (
+                      <Comment key={comment.id} comment={comment} />
+                    ))}
                   </VStack>
                   <Divider my={4} bg={'gray.800'} />
-                  <PostFooter isProfilePage={true}/>
+                  <PostFooter isProfilePage={true}post={post} />
                 </Flex>
             </Flex>
            

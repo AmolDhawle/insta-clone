@@ -19,7 +19,7 @@ const Comment = ({comment}) => {
             {userProfile.username}
           </Text>
         </Link>
-          <Text fontSize={14}>
+          <Text fontSize={12}>
             {comment.comment}
           </Text>
         </Flex>
